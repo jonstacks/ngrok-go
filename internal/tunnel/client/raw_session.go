@@ -164,7 +164,7 @@ func (s *rawSession) Accept() (netx.LoggedConn, error) {
 		}
 
 		reqType := proto.ReqType(raw.StreamType())
-		s.Debug("tunnel Accept", "reqType", reqType, "remoteAddr", s.remoteAddr)
+		s.Debug("tunnel Accept", "reqType", reqType, "remoteAddr", raw.RemoteAddr(), "localAddr", raw.LocalAddr())
 		deserialize := func(v any) (ok bool) {
 			if err := json.NewDecoder(raw).Decode(v); err != nil {
 				s.Error("failed to deserialize", "type", reflect.TypeOf(v), "err", err)
